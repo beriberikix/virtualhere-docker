@@ -1,7 +1,7 @@
 FROM alpine AS build
 WORKDIR /tmp/linux-src
 RUN apk add --no-cache --update ca-certificates libc-dev linux-headers libressl-dev elfutils-dev curl gcc bison flex make musl-dev \
-    && curl -fsSL https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-${KERNELVER}.tar.gz | tar -xzf - --strip-components=1 \
+    && curl -fsSL https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.gz | tar -xzf - --strip-components=1 \
     && make defconfig \
     && ([ ! -f /proc/1/root/proc/config.gz ] || zcat /proc/1/root/proc/config.gz > .config) \
     && printf '%s\n' 'CONFIG_USBIP_CORE=m' 'CONFIG_USBIP_VHCI_HCD=m' 'CONFIG_USBIP_VHCI_HC_PORTS=8' 'CONFIG_USBIP_VHCI_NR_HCS=1' >> .config \
